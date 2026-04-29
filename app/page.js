@@ -1,612 +1,508 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Navigation from './components/Navigation';
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState('dark');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    // Load saved theme from localStorage
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
-    document.documentElement.setAttribute('data-theme', savedTheme);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-  };
-
-  const navigationItems = [
-    {
-      title: 'Registration',
-      items: [
-        { name: 'Company Registration', link: '/company-registration' },
-        { name: 'LLP Registration', link: '/llp-registration' },
-        { name: 'Partnership Registration', link: '/partnership-registration' },
-        { name: 'Proprietor Registration', link: '/proprietor-registration' },
-        { name: 'GST Registration', link: '/gst-registration' },
-        { name: 'NGO Registration', link: '/ngo-registration' },
-        { name: 'MSME Registration', link: '/msme-registration' },
-        { name: 'Trade Mark Registration', link: '/trademark-registration' },
-        { name: 'FSSAI Registration', link: '/fssai-registration' },
-        { name: 'Import-Export Code (IEC)', link: '/import-export-code' },
-        { name: 'Professional Tax Registration', link: '/professional-tax-registration' }
-      ]
-    },
-    {
-      title: 'Compliance',
-      items: [
-        { name: 'Income Tax Return Filing', link: '/income-tax-return-filing' },
-        { name: 'GST Return Filing', link: '/gst-return-filing' },
-        { name: 'ROC Compliance', link: '/roc-compliance' },
-        { name: 'Secretarial Compliance', link: '/secretarial-compliance' },
-        { name: 'Book-Keeping / Accounting', link: '/bookkeeping-accounting' },
-        { name: 'Auditing Services', link: '/auditing-services' },
-        { name: 'TDS / TCS Return Filing', link: '/tds-tcs-filing' },
-        { name: 'PF Return Filing', link: '/pf-filing' },
-        { name: 'Customs & Import-Export Compliance', link: '/customs-import-export-compliance' }
-      ]
-    },
-    {
-      title: 'Litigation & Disputes',
-      items: [
-        { name: 'Income Tax Notices & Disputes', link: '/income-tax-disputes' },
-        { name: 'GST Notices & Disputes', link: '/gst-disputes' },
-        { name: 'Custom & Excise Notices & Disputes', link: '/customs-disputes' },
-        { name: 'TDS / TCS Notices & Disputes', link: '/tds-tcs-disputes' },
-        { name: 'NCLT Matters', link: '/nclt-matters' },
-        { name: 'International Tax Disputes', link: '/international-tax-disputes' },
-        { name: 'Tax Recovery & Stay Applications', link: '/tax-recovery-stay' },
-        { name: 'Representation in Courts & Tribunals', link: '/court-representation' }
-      ]
-    },
-    {
-      title: 'Advisory',
-      items: [
-        { name: 'Tax Planning & Optimization', link: '/tax-planning-optimization' },
-        { name: 'International Taxation', link: '/international-taxation' },
-        { name: 'Transfer Pricing', link: '/transfer-pricing' },
-        { name: 'Corporate Tax Advisory', link: '/corporate-tax-advisory' },
-        { name: 'GST Advisory', link: '/gst-advisory' }
-      ]
-    }
-  ];
-
   return (
-    <div className="min-h-screen transition-colors duration-300" style={{backgroundColor: 'var(--background)', color: 'var(--text-primary)'}}>
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 backdrop-blur-xl ${scrolled ? 'shadow-2xl' : ''}`} style={{backgroundColor: scrolled ? 'var(--nav-bg-scrolled)' : 'transparent'}}>
-        <div className="max-w-[1800px] mx-auto px-6 lg:px-12">
-          <div className="flex justify-between items-center h-20">
-            <Link href="/" className="group">
-              <div className="text-3xl font-light tracking-wider">
-                <span className="gradient-text">ANY</span>
-                <span className="group-hover:opacity-80 transition-opacity duration-300" style={{color: 'var(--text-primary)'}}>TAX</span>
-              </div>
-              <div className="text-[10px] tracking-[0.3em] uppercase mt-1" style={{color: 'var(--text-tertiary)'}}>Professional Tax Consultation</div>
-            </Link>
-            
-            {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center gap-12">
-              <Link 
-                href="/" 
-                className="text-sm tracking-wider transition-colors duration-300" 
-                style={{color: 'var(--text-secondary)'}} 
-                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} 
-                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-              >
-                Home
-              </Link>
-              {navigationItems.map((nav, index) => (
-                <div 
-                  key={index}
-                  className="relative group h-full flex items-center"
-                  onMouseEnter={() => setOpenDropdown(nav.title)}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                >
-                  <Link 
-                    href={`/${nav.title.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`}
-                    className="text-sm tracking-wider transition-colors duration-300 cursor-pointer py-6"
-                    style={{color: 'var(--text-secondary)'}}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-                  >
-                    {nav.title}
-                  </Link>
-                  {openDropdown === nav.title && (
-                    <div className="absolute left-0 top-full pt-2 w-80">
-                      <div className="backdrop-blur-xl rounded-sm shadow-2xl overflow-hidden" style={{backgroundColor: 'var(--dropdown-bg)', border: '1px solid var(--border-color)'}}>
-                        {nav.items.map((item, idx) => (
-                          <Link
-                            key={idx}
-                            href={item.link}
-                            className="block px-6 py-3 text-sm transition-all duration-300 last:border-0"
-                            style={{color: 'var(--text-secondary)', borderBottom: '1px solid var(--border-color)'}}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.background = 'linear-gradient(to right, rgba(131, 96, 195, 0.1), rgba(46, 191, 145, 0.1))';
-                              e.currentTarget.style.color = 'var(--text-primary)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.background = 'transparent';
-                              e.currentTarget.style.color = 'var(--text-secondary)';
-                            }}
-                          >
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-              <Link 
-                href="/about" 
-                className="text-sm tracking-wider transition-colors duration-300" 
-                style={{color: 'var(--text-secondary)'}} 
-                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} 
-                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-              >
-                About
-              </Link>
-              
-              {/* Theme Toggle Button */}
-              <button 
-                onClick={toggleTheme}
-                className="text-sm tracking-wider px-4 py-3 rounded-full transition-all duration-300 border"
-                style={{borderColor: 'var(--border-color)', color: 'var(--text-secondary)'}}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--gradient-start)';
-                  e.currentTarget.style.color = 'var(--text-primary)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--border-color)';
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                }}
-                title="Toggle theme"
-              >
-                {theme === 'dark' ? '☀️' : '🌙'}
-              </button>
-              
-              <Link href="/contact" className="text-sm tracking-wider px-8 py-3 transition-all duration-300 gradient-bg hover:opacity-90 text-white">
-                Contact
-              </Link>
-            </div>
+    <div className="min-h-screen bg-white overflow-x-hidden">
+      <Navigation />
 
-            {/* Mobile menu button */}
-            <div className="lg:hidden flex items-center gap-4">
-              <button 
-                onClick={toggleTheme}
-                className="text-2xl"
-                title="Toggle theme"
-              >
-                {theme === 'dark' ? '☀️' : '🌙'}
-              </button>
-              <button 
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                <div className="w-6 h-5 flex flex-col justify-between">
-                  <span className={`w-full h-0.5 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} style={{backgroundColor: 'var(--text-primary)'}}></span>
-                  <span className={`w-full h-0.5 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`} style={{backgroundColor: 'var(--text-primary)'}}></span>
-                  <span className={`w-full h-0.5 transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} style={{backgroundColor: 'var(--text-primary)'}}></span>
-                </div>
-              </button>
-            </div>
-          </div>
+      {/* ═══════════════════════════════════════════════════════════════
+          HERO — Gold "Shout" Liquid Section
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="relative min-h-screen bg-[#C9A84C] overflow-hidden">
+        {/* Decorative blobs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full bg-white/[0.08] blur-3xl" />
+          <div className="absolute bottom-10 left-0 w-[500px] h-[500px] rounded-full bg-[#0B1F3A]/[0.06] blur-3xl" />
+          <div className="absolute top-1/2 left-1/3 w-[300px] h-[300px] rounded-full bg-[#D4B85E]/40 blur-2xl" />
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden backdrop-blur-xl" style={{backgroundColor: 'var(--nav-bg)', borderTop: '1px solid var(--border-color)'}}>
-            <div className="max-w-[1800px] mx-auto px-6 py-8 space-y-6">
-              <Link 
-                href="/" 
-                className="block text-lg transition-colors" 
-                style={{color: 'var(--text-secondary)'}} 
-                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} 
-                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-              >
-                Home
-              </Link>
-              {navigationItems.map((nav, index) => (
-                <div key={index}>
-                  <button 
-                    className="w-full text-left text-lg transition-colors flex items-center justify-between"
-                    style={{color: 'var(--text-secondary)'}}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-                    onClick={() => setOpenDropdown(openDropdown === nav.title ? null : nav.title)}
-                  >
-                    {nav.title}
-                    <span className={`transition-transform duration-300 ${openDropdown === nav.title ? 'rotate-180' : ''}`}>↓</span>
-                  </button>
-                  {openDropdown === nav.title && (
-                    <div className="mt-4 ml-4 space-y-3">
-                      {nav.items.map((item, idx) => (
-                        <Link 
-                          key={idx} 
-                          href={item.link} 
-                          className="block text-sm transition-colors" 
-                          style={{color: 'var(--text-tertiary)'}} 
-                          onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} 
-                          onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 pt-36 lg:pt-44 pb-56 lg:pb-64">
+          <div className="grid lg:grid-cols-5 gap-16 items-center">
+            {/* Left — 3 cols */}
+            <div className="lg:col-span-3">
+              {/* Pill badge */}
+              <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-6 py-2.5 mb-10 border border-white/25">
+                <span className="text-[10px] tracking-[0.3em] uppercase text-[#0B1F3A]/80 font-semibold">
+                  Professional&nbsp; •&nbsp; Reliable&nbsp; •&nbsp; Affordable
+                </span>
+              </div>
+
+              <h1 className="text-4xl md:text-6xl lg:text-[3.25rem] xl:text-[3.75rem] font-extrabold tracking-tight leading-[1.05] mb-8">
+                <span className="text-[#0B1F3A]">India&apos;s Trusted Tax &amp; Compliance Platform</span>
+                <br />
+                <span className="text-white text-3xl md:text-5xl lg:text-[2.65rem]">CA-Led, Tech-Powered, Fully Online</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-[#0B1F3A]/75 font-light mb-6 max-w-2xl leading-relaxed">
+                From business registration and GST compliance to income tax litigation and international tax advisory — AnyTax.in delivers expert Chartered Accountant services at transparent, affordable pricing. Serving 1,000+ clients across India since 2020.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/contact"
+                  className="pill-btn bg-[#0B1F3A] text-white px-10 py-4 text-sm uppercase inline-flex items-center gap-2 shadow-2xl"
+                >
+                  Get a Free Consultation Today <span className="text-lg leading-none">→</span>
+                </Link>
+                <Link
+                  href="/registration"
+                  className="pill-btn bg-white/20 backdrop-blur-sm border border-white/30 text-[#0B1F3A] px-10 py-4 text-sm uppercase hover:bg-white/35"
+                >
+                  Explore Our Services
+                </Link>
+              </div>
+            </div>
+
+            {/* Right — 2 cols: Glass service cards (desktop) */}
+            <div className="hidden lg:grid lg:col-span-2 grid-cols-2 gap-4">
+              {[
+                {
+                  title: 'Start Your Business',
+                  price: 'From ₹999/-*',
+                  desc: 'Company, LLP, GST, MSME, FSSAI & more.',
+                  link: '/registration',
+                },
+                {
+                  title: 'Stay Compliant',
+                  price: 'From ₹499/-*',
+                  desc: 'ITR filing, GST returns, TDS, ROC compliance & bookkeeping.',
+                  link: '/compliance',
+                },
+                {
+                  title: 'Resolve Tax Disputes',
+                  price: 'From ₹999/-*',
+                  desc: 'Expert representation for IT notices, GST disputes & NCLT matters.',
+                  link: '/litigation',
+                },
+                {
+                  title: 'Strategic Tax Advisory',
+                  price: 'Consult us',
+                  desc: 'Tax planning, transfer pricing, international taxation & corporate advisory.',
+                  link: '/advisory',
+                },
+              ].map((s, i) => (
+                <Link
+                  key={i}
+                  href={s.link}
+                  className={`bg-white/18 backdrop-blur-xl border border-white/25 rounded-[32px] p-6 text-left group hover:bg-white/30 transition-all duration-500 hover:-translate-y-1 ${
+                    i % 2 === 0 ? 'animate-float' : 'animate-float-slow'
+                  }`}
+                  style={{ animationDelay: `${i * 0.4}s` }}
+                >
+                  <div className="text-[10px] tracking-[0.3em] uppercase text-[#0B1F3A]/55 font-semibold mb-2">
+                    {s.title}
+                  </div>
+                  <div className="text-xs text-[#0B1F3A]/40 font-light mb-2 leading-relaxed">
+                    {s.desc}
+                  </div>
+                  <div className="text-2xl font-bold text-[#0B1F3A]">{s.price}</div>
+                  <div className="mt-3 text-[#0B1F3A]/30 text-sm font-medium group-hover:text-[#0B1F3A]/70 transition-colors">
+                    Learn more →
+                  </div>
+                </Link>
               ))}
-              <Link 
-                href="/about" 
-                className="block text-lg transition-colors" 
-                style={{color: 'var(--text-secondary)'}} 
-                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} 
-                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-              >
-                About
-              </Link>
-              <Link href="/contact" className="block text-lg" style={{color: 'var(--text-primary)'}}>
-                Contact
-              </Link>
             </div>
           </div>
-        )}
-      </nav>
 
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-6 lg:px-12">
-        <div className="absolute inset-0" style={{backgroundImage: 'var(--gradient-bg-subtle)'}}></div>
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(131, 96, 195, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(46, 191, 145, 0.08) 0%, transparent 50%)'
-        }}></div>
-        
-        <div className="max-w-[1400px] mx-auto text-center relative z-10 py-32">
-          <div className="mb-8">
-            <div className="inline-block">
-              <div className="text-[10px] tracking-[0.4em] uppercase mb-4 font-light" style={{color: 'var(--gradient-start)'}}>Professional • Adorable • Reliable</div>
-            </div>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight mb-8 leading-[1.1]">
-            <div className="mb-2">We offer best &</div>
-            <div className="gradient-text">
-              affordable expert
-            </div>
-          </h1>
-
-          <p className="text-xl md:text-2xl mb-12 tracking-wide" style={{color: 'var(--text-secondary)'}}>
-            For your Tax and Financial Needs
-          </p>
-
-          <p className="text-lg mb-12 max-w-3xl mx-auto leading-relaxed" style={{color: 'var(--text-tertiary)'}}>
-            Get the financial services and grow your business.
-          </p>
-
-          <div className="flex flex-col md:flex-row gap-6 justify-center items-center mb-20">
-            <Link href="/contact" className="group px-12 py-5 transition-all duration-500 text-sm tracking-wider uppercase hover:opacity-90 gradient-bg">
-              Get Started
-              <span className="inline-block ml-2 group-hover:translate-x-2 transition-transform duration-300">→</span>
-            </Link>
-            <Link href="/registration" className="px-12 py-5 border transition-all duration-500 text-sm tracking-wider uppercase" style={{borderColor: 'var(--gradient-start)'}} onMouseEnter={(e) => {e.currentTarget.style.borderColor = 'var(--gradient-start)'; e.currentTarget.style.backgroundColor = 'hsla(333, 100%, 53%, 0.1)'}} onMouseLeave={(e) => {e.currentTarget.style.borderColor = 'var(--gradient-start)'; e.currentTarget.style.backgroundColor = 'transparent'}}>
-              Explore Services
-            </Link>
-          </div>
-
-          {/* Quick Service Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+          {/* Mobile service cards */}
+          <div className="lg:hidden grid grid-cols-2 gap-3 mt-16">
             {[
-              { title: "Start Business", price: "INR 999/-*", desc: "Start your business in as low as", link: "/registration" },
-              { title: "Maintain Business", price: "499/-*", desc: "Start maintaining your business in as low as", link: "/compliance" },
-              { title: "Regulatory Filing", price: "499/-*", desc: "Start filing for your business in as low as", link: "/compliance" },
-              { title: "TAX Litigation", price: "999/-*", desc: "Start replying for notices in as low as", link: "/litigation" }
-            ].map((service, idx) => (
-              <Link 
-                key={idx}
-                href={service.link}
-                className="group p-6 border transition-all duration-500 text-left"
-                style={{
-                  borderColor: 'var(--border-color)',
-                  backgroundColor: 'var(--card-bg)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--gradient-end)';
-                  e.currentTarget.style.backgroundColor = 'var(--card-bg-hover)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--border-color)';
-                  e.currentTarget.style.backgroundColor = 'var(--card-bg)';
-                }}
+              {
+                title: 'Start Your Business',
+                price: 'From ₹999/-*',
+                desc: 'Company, LLP, GST, MSME, FSSAI & more.',
+                link: '/registration',
+              },
+              {
+                title: 'Stay Compliant',
+                price: 'From ₹499/-*',
+                desc: 'ITR, GST, TDS, ROC & bookkeeping.',
+                link: '/compliance',
+              },
+              {
+                title: 'Resolve Disputes',
+                price: 'From ₹999/-*',
+                desc: 'IT notices, GST disputes & NCLT.',
+                link: '/litigation',
+              },
+              {
+                title: 'Tax Advisory',
+                price: 'Consult us',
+                desc: 'Planning, TP, international & corporate.',
+                link: '/advisory',
+              },
+            ].map((s, i) => (
+              <Link
+                key={i}
+                href={s.link}
+                className="bg-white/18 backdrop-blur-xl border border-white/25 rounded-[24px] p-5 text-left group hover:bg-white/30 transition-all duration-500"
               >
-                <div className="text-sm tracking-wider mb-2 uppercase" style={{color: 'var(--text-secondary)'}}>{service.title}</div>
-                <div className="text-2xl font-light gradient-text mb-2">
-                  {service.price}
+                <div className="text-[9px] tracking-[0.25em] uppercase text-[#0B1F3A]/55 font-semibold mb-1">
+                  {s.title}
                 </div>
-                <div className="text-xs leading-relaxed" style={{color: 'var(--text-tertiary)'}}>{service.desc}</div>
-                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{color: 'var(--gradient-start)'}}>
-                  Read More →
-                </div>
+                <div className="text-[11px] text-[#0B1F3A]/40 font-light mb-1">{s.desc}</div>
+                <div className="text-lg font-bold text-[#0B1F3A]">{s.price}</div>
               </Link>
             ))}
           </div>
+        </div>
 
-          <div className="mt-24 text-xs tracking-[0.3em] uppercase animate-bounce" style={{color: 'var(--text-tertiary)'}}>
-            Scroll Down ↓
-          </div>
+        {/* Wave → Navy Void */}
+        <div className="absolute bottom-0 left-0 right-0 leading-[0]">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="w-full h-[60px] md:h-[120px] block">
+            <path d="M0,60 C240,120 480,20 720,80 C960,140 1200,20 1440,60 L1440,120 L0,120 Z" fill="#0B1F3A" />
+          </svg>
         </div>
       </section>
 
-      {/* Specialized Services Section */}
-      <section className="py-32 px-6 lg:px-12 border-t transition-colors duration-300" style={{borderColor: 'var(--border-color)', background: theme === 'dark' ? 'linear-gradient(to bottom, #000000, #0a0a0a, #000000)' : 'linear-gradient(to bottom, #ffffff, #f9fafb, #ffffff)'}}>
-        <div className="max-w-[1800px] mx-auto">
+      {/* ═══════════════════════════════════════════════════════════════
+          SERVICES — Navy Void Section
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-[#0B1F3A] py-28 lg:py-36 px-6 lg:px-10">
+        <div className="max-w-[1400px] mx-auto">
+          {/* Header */}
           <div className="mb-20 text-center">
-            <div className="text-[10px] tracking-[0.4em] uppercase mb-4" style={{color: 'var(--gradient-start)'}}>Our Expertise</div>
-            <h2 className="text-4xl lg:text-6xl font-light tracking-tight mb-6">
-              Specialized services <span className="gradient-text">we offer</span>
+            <div className="inline-flex items-center bg-[#C9A84C]/15 rounded-full px-5 py-1.5 mb-6">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C9A84C] font-semibold">
+                Our Expertise
+              </span>
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-white mb-6">
+              Specialized services{' '}
+              <span className="gradient-text">we offer</span>
             </h2>
-            <p className="max-w-3xl mx-auto" style={{color: 'var(--text-secondary)'}}>
-              We provide Comprehensive tax and related services for individuals and businesses, tailored to your needs.
+            <p className="max-w-2xl mx-auto text-[#B0C4DE] text-lg font-light leading-relaxed">
+              End-to-end tax, compliance, and registration support for individuals and businesses — supervised by qualified Chartered Accountants.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {/* Service grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { icon: "📊", title: "Income Tax Returns", link: "/income-tax-return-filing" },
-              { icon: "🧾", title: "GST Returns", link: "/gst-return-filing" },
-              { icon: "🏢", title: "MCA (ROC) Returns", link: "/roc-compliance" },
-              { icon: "📈", title: "Project Report", link: "/contact" },
-              { icon: "🔐", title: "Digital Signature Certificate", link: "/contact" },
-              { icon: "™️", title: "Trademark Registration", link: "/trademark-registration" },
-              { icon: "🏭", title: "Company Registration", link: "/company-registration" },
-              { icon: "💼", title: "Business Advisory", link: "/advisory" }
-            ].map((service, idx) => (
-              <Link 
-                key={idx}
-                href={service.link}
-                className="group p-8 border transition-all duration-500 text-center"
-                style={{
-                  borderColor: 'var(--border-color)',
-                  backgroundColor: 'var(--card-bg)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--gradient-start)';
-                  e.currentTarget.style.backgroundColor = 'var(--card-bg-hover)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--border-color)';
-                  e.currentTarget.style.backgroundColor = 'var(--card-bg)';
-                }}
+              { icon: '📊', title: 'Income Tax Returns', link: '/compliance/income-tax-return-filing' },
+              { icon: '🧾', title: 'GST Returns', link: '/compliance/gst-return-filing' },
+              { icon: '🏢', title: 'MCA (ROC) Returns', link: '/compliance/roc-compliance' },
+              { icon: '📈', title: 'Project Report', link: '/contact' },
+              { icon: '🔐', title: 'Digital Signature Certificate', link: '/contact' },
+              { icon: '™️', title: 'Trademark Registration', link: '/registration/trademark-registration' },
+              { icon: '🏭', title: 'Company Registration', link: '/registration/company-registration' },
+              { icon: '💼', title: 'Business Advisory', link: '/advisory' },
+            ].map((s, i) => (
+              <Link
+                key={i}
+                href={s.link}
+                className="glass-dark rounded-[32px] p-8 text-center group hover:bg-white/[0.08] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
               >
-                <div className="text-6xl mb-6 group-hover:scale-110 transition-transform duration-500">{service.icon}</div>
-                <div className="text-lg font-light tracking-wide group-hover:gradient-text transition-colors duration-300" style={{color: 'var(--text-primary)'}}>
-                  {service.title}
+                <div className="text-5xl mb-5 group-hover:scale-110 transition-transform duration-500">
+                  {s.icon}
+                </div>
+                <div className="text-white font-semibold tracking-wide text-base">
+                  {s.title}
                 </div>
               </Link>
             ))}
           </div>
         </div>
+
+        {/* Wave → White */}
+        <div className="absolute -bottom-px left-0 right-0 leading-[0]">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="w-full h-[60px] md:h-[120px] block">
+            <path d="M0,80 C360,0 720,120 1080,40 C1260,0 1380,60 1440,80 L1440,120 L0,120 Z" fill="#FFFFFF" />
+          </svg>
+        </div>
       </section>
 
-      {/* About Us Section */}
-      <section className="py-32 px-6 lg:px-12 border-t transition-colors duration-300" style={{
-        borderColor: 'var(--border-color)',
-        background: theme === 'dark' ? 'linear-gradient(180deg, rgba(39, 39, 42, 0.3) 0%, rgba(0, 0, 0, 1) 100%)' : 'linear-gradient(180deg, rgba(243, 244, 246, 0.5) 0%, rgba(255, 255, 255, 1) 100%)'
-      }}>
+      {/* ═══════════════════════════════════════════════════════════════
+          ABOUT — White Section
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-white py-28 lg:py-36 px-6 lg:px-10">
         <div className="max-w-[1400px] mx-auto">
+          {/* Header */}
           <div className="mb-16 text-center">
-            <div className="text-[10px] tracking-[0.4em] uppercase mb-4" style={{color: 'var(--gradient-start)'}}>About Us</div>
-            <h2 className="text-4xl lg:text-6xl font-light tracking-tight">
+            <div className="inline-flex items-center bg-[#C9A84C]/[0.1] rounded-full px-5 py-1.5 mb-6">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C9A84C] font-semibold">
+                About Us
+              </span>
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-[#0B1F3A]">
               Our <span className="gradient-text">Journey</span>
             </h2>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-8 leading-relaxed text-lg mb-20" style={{color: 'var(--text-secondary)'}}>
+          {/* Body */}
+          <div className="max-w-4xl mx-auto space-y-6 text-lg leading-relaxed text-[#3D5A80] mb-24">
             <p>
-              <span className="font-light" style={{color: 'var(--text-primary)'}}>ANYTAX.IN</span> is a technology-driven online platform dedicated to simplifying tax and financial services for individuals and businesses. Established in <span style={{color: 'var(--gradient-start)'}}>2020</span> by a qualified Chartered Accountant, the company was born out of a long-standing vision that took root back in 2011 when the founder first earned his CA certification.
+              <span className="font-bold text-[#0B1F3A]">AnyTax.in</span> was founded in{' '}
+              <span className="text-[#C9A84C] font-semibold">2020</span> by a qualified Chartered Accountant with over a decade of professional experience since{' '}
+              <span className="text-[#C9A84C] font-semibold">2011</span>. Built on the belief that every Indian taxpayer — individual or business — deserves access to accurate, professional, and affordable tax services, we leverage technology to eliminate complexity and deliver peace of mind.
             </p>
             <p>
-              Navigating the Indian tax system has always been a daunting challenge due to its intricate and ever-evolving nature. Frequent regulatory updates, countless legal precedents, and complex case laws make it difficult for taxpayers to stay compliant. ANYTAX.IN was created to provide a reliable, professional, and tech-enabled solution to these challenges, ensuring accuracy and peace of mind for its clients.
+              With <span className="font-semibold text-[#0B1F3A]">50+ expert associates</span> and a presence across New Delhi, NCR, Bihar, Jharkhand and Telangana, we bring national capability with local understanding.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
-            <div>
-              <h3 className="text-2xl font-light mb-6 tracking-wide">Our Presence</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {['New Delhi', 'Noida', 'Ranchi', 'Patna', 'Dhanbad', 'Begusarai', 'Telangana'].map((city, idx) => (
-                  <div 
-                    key={idx} 
-                    className="flex items-center gap-3 p-4 border transition-colors duration-300" 
-                    style={{borderColor: 'var(--border-color)'}}
-                    onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--gradient-start)'} 
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}
+          {/* Presence + Understanding */}
+          <div className="grid md:grid-cols-2 gap-8 mb-24">
+            <div className="bg-[#FDFBF6] rounded-[32px] p-8 lg:p-10 border border-[#E2DFD6]">
+              <h3 className="text-2xl font-bold text-[#0B1F3A] mb-6">
+                Our Presence
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  'New Delhi',
+                  'Noida',
+                  'Ranchi',
+                  'Patna',
+                  'Dhanbad',
+                  'Begusarai',
+                  'Telangana',
+                ].map((city, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#E2DFD6] hover:border-[#C9A84C]/40 hover:shadow-md transition-all duration-300"
                   >
-                    <span style={{color: 'var(--gradient-start)'}}>📍</span>
-                    <span style={{color: 'var(--text-secondary)'}}>{city}</span>
+                    <span className="w-2 h-2 rounded-full bg-[#C9A84C] flex-shrink-0" />
+                    <span className="text-sm text-[#3D5A80] font-medium">{city}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="border p-8" style={{borderColor: 'var(--border-color)'}}>
-              <h3 className="text-2xl font-light mb-6 tracking-wide" style={{color: 'var(--text-primary)'}}>We always try to understand customers expectation</h3>
-              <p className="leading-relaxed" style={{color: 'var(--text-secondary)'}}>
-                We take the time to listen and understand your unique business needs. Our dedicated team strives to exceed your expectations by delivering customized solutions and exceptional service.
+            <div className="bg-[#FDFBF6] rounded-[32px] p-8 lg:p-10 border border-[#E2DFD6] flex flex-col justify-center">
+              <h3 className="text-2xl font-bold text-[#0B1F3A] mb-4">
+                Radical transparency, client education
+              </h3>
+              <p className="text-[#3D5A80] leading-relaxed">
+                We explain not just what we are doing, but why — so you understand your tax position and can decide with confidence. Upfront communication on scope, timelines, and fees.
               </p>
             </div>
           </div>
 
           {/* Stats */}
-          <div className="grid md:grid-cols-3 gap-12 text-center">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
             {[
-              { number: "1000+", label: "Clients Served" },
-              { number: "10K+", label: "Feedback" },
-              { number: "50+", label: "Associates" }
-            ].map((stat, idx) => (
-              <div key={idx} className="group">
-                <div className="text-6xl lg:text-7xl font-light mb-4 gradient-text group-hover:scale-110 transition-transform duration-500">
+              { number: '1000+', label: 'Clients Served' },
+              { number: '10K+', label: 'Feedback' },
+              { number: '50+', label: 'Associates' },
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className="group bg-[#FDFBF6] rounded-[32px] p-10 border border-[#E2DFD6] hover:border-[#C9A84C]/40 hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+              >
+                <div className="text-6xl lg:text-7xl font-extrabold gradient-text mb-4 group-hover:scale-105 transition-transform duration-500">
                   {stat.number}
                 </div>
-                <div className="text-xl tracking-wider" style={{color: 'var(--text-secondary)'}}>{stat.label}</div>
+                <div className="text-lg font-medium text-[#3D5A80] tracking-wide">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Wave → Navy */}
+        <div className="absolute -bottom-px left-0 right-0 leading-[0]">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="w-full h-[60px] md:h-[120px] block">
+            <path d="M0,40 C480,120 960,10 1440,60 L1440,120 L0,120 Z" fill="#0B1F3A" />
+          </svg>
+        </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-32 px-6 lg:px-12 border-t transition-colors duration-300" style={{borderColor: 'var(--border-color)', backgroundColor: 'var(--surface)'}}>
-        <div className="max-w-[1800px] mx-auto">
+      {/* ═══════════════════════════════════════════════════════════════
+          TESTIMONIALS — Navy Void Section
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-[#0B1F3A] py-28 lg:py-36 px-6 lg:px-10">
+        <div className="max-w-[1400px] mx-auto">
+          {/* Header */}
           <div className="mb-20 text-center">
-            <div className="text-[10px] tracking-[0.4em] uppercase mb-4" style={{color: 'var(--gradient-start)'}}>Testimonials</div>
-            <h2 className="text-4xl lg:text-6xl font-light tracking-tight">
-              What customers say <span className="gradient-text">about us</span>
+            <div className="inline-flex items-center bg-[#C9A84C]/15 rounded-full px-5 py-1.5 mb-6">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#C9A84C] font-semibold">
+                What Our Clients Say
+              </span>
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-white">
+              1,000+ satisfied clients{' '}
+              <span className="gradient-text">across India</span>
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* Cards */}
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                name: "Shiva Krishna",
-                role: "Proprietor",
-                content: "Income Tax return filing done in no time. The return was done in no time and pure professionally. I like the way anytax work.",
-                rating: 5
+                name: 'Shiva Krishna',
+                role: 'Proprietor',
+                content:
+                  'Income Tax return filing done in no time. The return was done in no time and pure professionally. I like the way anytax work.',
+                rating: 5,
               },
               {
-                name: "Rajesh Kumar",
-                role: "Employee",
-                content: "Filing of GST returns in time was not that easy before. GST return filing even to this date is not easy. Thanks to anytax, we don't have to bother about that now.",
-                rating: 5
+                name: 'Rajesh Kumar',
+                role: 'Employee',
+                content:
+                  "Filing of GST returns in time was not that easy before. GST return filing even to this date is not easy. Thanks to anytax, we don't have to bother about that now.",
+                rating: 5,
               },
               {
-                name: "Vinod Kumar",
-                role: "Director at Kunj Vihar Builders Pvt Ltd",
-                content: "Real time accounting provides us with critical insight into our business. We have been using services of anytax for 2 years now. I must say that has changed the way we do business.",
-                rating: 5
-              }
-            ].map((testimonial, idx) => (
-              <div 
-                key={idx} 
-                className="p-8 border transition-all duration-500" 
-                style={{
-                  borderColor: 'var(--border-color)',
-                  backgroundColor: 'var(--card-bg)'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--gradient-start)'} 
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}
+                name: 'Vinod Kumar',
+                role: 'Director at Kunj Vihar Builders Pvt Ltd',
+                content:
+                  'Real time accounting provides us with critical insight into our business. We have been using services of anytax for 2 years now. I must say that has changed the way we do business.',
+                rating: 5,
+              },
+            ].map((t, i) => (
+              <div
+                key={i}
+                className="glass-dark rounded-[32px] p-8 hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl group"
               >
-                <div className="flex mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-xl" style={{color: 'var(--gradient-start)'}}>★</span>
+                {/* Stars */}
+                <div className="flex gap-1 mb-6">
+                  {[...Array(t.rating)].map((_, j) => (
+                    <span key={j} className="text-[#C9A84C] text-lg">★</span>
                   ))}
                 </div>
-                <p className="mb-8 leading-relaxed italic" style={{color: 'var(--text-secondary)'}}>"{testimonial.content}"</p>
+                <p className="text-[#B0C4DE] font-light leading-relaxed mb-8 italic">
+                  &ldquo;{t.content}&rdquo;
+                </p>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center font-light text-xl gradient-bg text-white">
-                    {testimonial.name.charAt(0)}
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#E8C964] flex items-center justify-center text-[#0B1F3A] font-bold text-lg shadow-lg">
+                    {t.name.charAt(0)}
                   </div>
                   <div>
-                    <div className="font-light" style={{color: 'var(--text-primary)'}}>{testimonial.name}</div>
-                    <div className="text-sm" style={{color: 'var(--text-tertiary)'}}>{testimonial.role}</div>
+                    <div className="text-white font-semibold">{t.name}</div>
+                    <div className="text-sm text-[#7A8FA6]">{t.role}</div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-32 px-6 lg:px-12 border-t transition-colors duration-300" style={{borderColor: 'var(--border-color)', backgroundImage: 'var(--gradient-bg-subtle)'}}>
-        <div className="max-w-[1200px] mx-auto text-center">
-          <div className="text-[10px] tracking-[0.4em] uppercase mb-8" style={{color: 'var(--gradient-start)'}}>Get in Touch</div>
-          <h2 className="text-4xl lg:text-6xl font-light tracking-tight mb-12 leading-tight">
-            Looking for an{' '}
-            <span className="gradient-text">
-              experienced advisor?
-            </span>
-          </h2>
-          <p className="text-lg mb-12 max-w-2xl mx-auto leading-relaxed" style={{color: 'var(--text-secondary)'}}>
-            Our team is here to answer your questions. With a vision to make our services reach the farthest and remotest part of India and provide a link in the growth of our nation. We are always here to help.
-          </p>
-          <Link 
-            href="/contact" 
-            className="inline-flex items-center gap-3 text-lg hover:gap-6 transition-all duration-500 group"
-          >
-            <span className="tracking-wider">Get a free Quote</span>
-            <span className="group-hover:translate-x-2 transition-transform duration-300" style={{color: 'var(--gradient-start)'}}>→</span>
-          </Link>
+        {/* Wave → Gold CTA */}
+        <div className="absolute -bottom-px left-0 right-0 leading-[0]">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="w-full h-[60px] md:h-[120px] block">
+            <path d="M0,80 C360,10 720,120 1080,40 C1260,0 1380,60 1440,80 L1440,120 L0,120 Z" fill="#C9A84C" />
+          </svg>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t px-6 lg:px-12 py-16 transition-colors duration-300" style={{borderColor: 'var(--border-color)'}}>
-        <div className="max-w-[1800px] mx-auto">
-          <div className="grid md:grid-cols-4 gap-12 mb-16">
+      {/* ═══════════════════════════════════════════════════════════════
+          CTA — Gold "Shout" Section
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="relative bg-[#C9A84C] py-28 lg:py-36 px-6 lg:px-10 overflow-hidden">
+        {/* Decorative blob */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-white/[0.08] blur-3xl" />
+          <div className="absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full bg-[#0B1F3A]/[0.06] blur-3xl" />
+        </div>
+
+        <div className="relative z-10 max-w-[900px] mx-auto text-center">
+          <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-5 py-1.5 mb-8 border border-white/25">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-[#0B1F3A]/70 font-semibold">
+              Get in Touch
+            </span>
+          </div>
+          <h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-[#0B1F3A] mb-6 leading-tight">
+            Looking for an{' '}
+            <span className="text-white">experienced advisor?</span>
+          </h2>
+          <p className="text-lg text-[#0B1F3A]/55 font-light mb-12 max-w-2xl mx-auto leading-relaxed">
+            Speak with a CA-led team for registration, compliance, disputes, or advisory. We serve clients online across India with the same rigour as at our NCR and regional offices.
+          </p>
+          <Link
+            href="/contact"
+            className="pill-btn bg-[#0B1F3A] text-white px-12 py-5 text-sm uppercase inline-flex items-center gap-3 shadow-2xl"
+          >
+            Get a Free Consultation Today <span className="text-lg leading-none">→</span>
+          </Link>
+        </div>
+
+        {/* Wave → Navy footer */}
+        <div className="absolute -bottom-px left-0 right-0 leading-[0]">
+          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-[40px] md:h-[80px] block">
+            <path d="M0,30 C480,80 960,0 1440,50 L1440,80 L0,80 Z" fill="#0B1F3A" />
+          </svg>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          FOOTER — Navy Void
+         ═══════════════════════════════════════════════════════════════ */}
+      <footer className="bg-[#0B1F3A] px-6 lg:px-10 pt-20 pb-10">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            {/* Brand */}
             <div>
-              <div className="text-2xl font-light tracking-wider mb-4">
-                <span className="gradient-text">ANY</span>
-                <span style={{color: 'var(--text-primary)'}}>TAX</span>
+              <div className="flex items-center gap-3 mb-5">
+                <svg className="w-9 h-9 flex-shrink-0" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="60" height="60" rx="16" fill="#C9A84C"/>
+                  <path d="M15 36 L25 46 L49 18" stroke="#0B1F3A" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                  <line x1="15" y1="52" x2="49" y2="52" stroke="#0B1F3A" strokeWidth="2.5" strokeLinecap="round" opacity="0.25"/>
+                </svg>
+                <div className="flex items-baseline leading-none">
+                  <span className="text-xl font-light tracking-[0.04em] lowercase text-white">any</span>
+                  <span className="text-xl font-black tracking-tight uppercase text-[#C9A84C]">TAX</span>
+                  <span className="text-[10px] font-semibold text-[#C9A84C]/40 ml-0.5">.in</span>
+                </div>
               </div>
-              <p className="text-sm leading-relaxed mb-4" style={{color: 'var(--text-tertiary)'}}>
-                Technology-driven platform for all your tax and financial needs across India.
+              <p className="text-sm text-[#7A8FA6] leading-relaxed mb-4">
+                CA-led tax, compliance, and registration services online and across NCR, Bihar, Jharkhand, and Telangana.
               </p>
-              <p className="text-sm" style={{color: 'var(--text-tertiary)'}}>
-                Visit: <a href="https://anytax.in" className="hover:underline" style={{color: 'var(--gradient-start)'}}>www.anytax.in</a>
+              <p className="text-sm text-[#7A8FA6]">
+                Visit:{' '}
+                <a href="https://anytax.in" className="text-[#C9A84C] hover:underline font-medium">
+                  www.anytax.in
+                </a>
               </p>
             </div>
 
+            {/* Services */}
             <div>
-              <div className="text-xs tracking-[0.3em] uppercase mb-6" style={{color: 'var(--text-tertiary)'}}>Services</div>
+              <div className="text-[10px] tracking-[0.3em] uppercase text-[#7A8FA6] font-semibold mb-6">
+                Services
+              </div>
               <div className="space-y-3">
-                {['Company Registration', 'LLP Registration', 'GST Registration', 'MSME Registration', 'Income Tax Filing', 'GST Filing', 'ROC Compliance'].map((link, idx) => (
-                  <Link 
-                    key={idx} 
-                    href="/registration" 
-                    className="block text-sm transition-colors duration-300" 
-                    style={{color: 'var(--text-secondary)'}} 
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} 
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                {[
+                  { name: 'Company Registration', link: '/registration/company-registration' },
+                  { name: 'LLP Registration', link: '/registration/llp-registration' },
+                  { name: 'GST Registration', link: '/registration/gst-registration' },
+                  { name: 'MSME Registration', link: '/registration/msme-registration' },
+                  { name: 'Income Tax Filing', link: '/compliance/income-tax-return-filing' },
+                  { name: 'GST Filing', link: '/compliance/gst-return-filing' },
+                  { name: 'ROC Compliance', link: '/compliance/roc-compliance' },
+                ].map((link, i) => (
+                  <Link
+                    key={i}
+                    href={link.link}
+                    className="block text-sm text-[#B0C4DE] hover:text-[#C9A84C] transition-colors font-light"
                   >
-                    {link}
+                    {link.name}
                   </Link>
                 ))}
               </div>
             </div>
 
+            {/* Important Links */}
             <div>
-              <div className="text-xs tracking-[0.3em] uppercase mb-6" style={{color: 'var(--text-tertiary)'}}>Important Links</div>
+              <div className="text-[10px] tracking-[0.3em] uppercase text-[#7A8FA6] font-semibold mb-6">
+                Important Links
+              </div>
               <div className="space-y-3">
                 {[
                   { name: 'Income Tax Department', url: 'https://www.incometax.gov.in' },
                   { name: 'GST Portal', url: 'https://www.gst.gov.in' },
                   { name: 'MCA', url: 'https://www.mca.gov.in' },
-                  { name: 'Startup India', url: 'https://www.startupindia.gov.in' }
-                ].map((link, idx) => (
-                  <a 
-                    key={idx} 
-                    href={link.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="block text-sm transition-colors duration-300" 
-                    style={{color: 'var(--text-secondary)'}} 
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} 
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                  { name: 'Startup India', url: 'https://www.startupindia.gov.in' },
+                ].map((link, i) => (
+                  <a
+                    key={i}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-sm text-[#B0C4DE] hover:text-[#C9A84C] transition-colors font-light"
                   >
                     {link.name}
                   </a>
@@ -614,53 +510,49 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Address */}
             <div>
-              <div className="text-xs tracking-[0.3em] uppercase mb-6" style={{color: 'var(--text-tertiary)'}}>Address</div>
-              <div className="text-sm space-y-2 mb-6" style={{color: 'var(--text-secondary)'}}>
-                <p className="font-semibold" style={{color: 'var(--text-secondary)'}}>HQ:</p>
+              <div className="text-[10px] tracking-[0.3em] uppercase text-[#7A8FA6] font-semibold mb-6">
+                Address
+              </div>
+              <div className="text-sm text-[#B0C4DE] space-y-1.5 mb-6 font-light">
+                <p className="font-semibold text-white/80">HQ:</p>
                 <p>1212B, Tower-A, Phase-I</p>
                 <p>Spectrum @Metro Mall</p>
                 <p>Sector-75, Noida, UP-201301</p>
               </div>
-              <div className="text-sm space-y-2" style={{color: 'var(--text-secondary)'}}>
-                <p className="font-semibold" style={{color: 'var(--text-secondary)'}}>Contact:</p>
-                <p>Email: <a href="mailto:info@anytax.in" className="hover:underline" style={{color: 'var(--gradient-start)'}}>info@anytax.in</a></p>
-                <p>Phone: <a href="tel:+918877777345" className="hover:underline" style={{color: 'var(--gradient-start)'}}>+91 88777 77345</a></p>
+              <div className="text-sm text-[#B0C4DE] space-y-1.5 font-light">
+                <p className="font-semibold text-white/80">Contact:</p>
+                <p>
+                  Email:{' '}
+                  <a href="mailto:askanytax@gmail.com" className="text-[#C9A84C] hover:underline font-medium">
+                    askanytax@gmail.com
+                  </a>
+                </p>
+                <p>
+                  Phone:{' '}
+                  <a href="tel:+918877777345" className="text-[#C9A84C] hover:underline font-medium">
+                    +91 88777 77345
+                  </a>
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4" style={{borderColor: 'var(--border-color)'}}>
-            <p className="text-xs tracking-wider" style={{color: 'var(--text-tertiary)'}}>Copyright @ANYTAX All rights Reserved</p>
-            <button 
+          {/* Bottom bar */}
+          <div className="pt-8 border-t border-[#1A3558] flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-[#7A8FA6] tracking-wider">
+              Copyright @ANYTAX All rights Reserved
+            </p>
+            <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-xs tracking-wider transition-colors duration-300 flex items-center gap-2"
-              style={{color: 'var(--text-secondary)'}}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+              className="pill-btn bg-[#122B4A] text-[#B0C4DE] hover:text-white text-xs px-6 py-2.5 border border-[#1A3558] hover:border-[#C9A84C] flex items-center gap-2"
             >
-              TOP <span>↑</span>
+              Back to top <span>↑</span>
             </button>
           </div>
         </div>
       </footer>
-
-      <style jsx global>{`
-        @keyframes slideUp {
-          from {
-            transform: translateY(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-        
-        html {
-          scroll-behavior: smooth;
-        }
-      `}</style>
     </div>
   );
 }

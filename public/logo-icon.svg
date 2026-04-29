@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Navy rounded square -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#0B1F3A"/>
+
+  <!-- Gold checkmark sweeping into upward trend: compliance ✓ + growth ↑ -->
+  <path d="M15 36 L25 46 L49 18" stroke="#C9A84C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Subtle ledger line (financial precision) -->
+  <line x1="15" y1="52" x2="49" y2="52" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" opacity="0.3"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <!-- Icon: Navy rounded square with gold check-trend -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#0B1F3A"/>
+  <path d="M15 36 L25 46 L49 18" stroke="#C9A84C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="15" y1="52" x2="49" y2="52" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Wordmark: "any" light + "TAX" bold -->
+  <text x="72" y="42" font-family="Inter, system-ui, sans-serif">
+    <tspan font-weight="300" font-size="30" letter-spacing="1" fill="#0B1F3A">any</tspan><tspan font-weight="900" font-size="30" letter-spacing="-0.5" fill="#C9A84C">TAX</tspan>
+  </text>
+  <!-- .in suffix -->
+  <text x="220" y="42" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="14" fill="#C9A84C" opacity="0.6">.in</text>
+</svg>
