@@ -25,7 +25,7 @@ const organizationJsonLd = {
     postalCode: "201301",
     addressCountry: "IN",
   },
-  email: "askanytax@gmail.com",
+  email: "hello@anytax.in",
   telephone: "+91-8877777345",
 };
 

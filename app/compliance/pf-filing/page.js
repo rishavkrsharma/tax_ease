@@ -50,7 +50,7 @@ export default function PFFilingPage() {
             {[
               {
                 title: "EPF/EPS/EDLI Filing",
-                price: "₹1,499/month",
+                price: "₹999/-*",
                 features: ["Monthly ECR filing", "Challan generation", "Employee coverage", "UAN management", "Wage calculation", "Compliance reporting"]
               },
               {

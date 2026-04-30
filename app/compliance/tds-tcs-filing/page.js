@@ -59,7 +59,7 @@ export default function TDSTCSFilingPage() {
                 {[
                   {
                     title: "TDS on Salary",
-                    price: "₹1,499/quarter",
+                    price: "₹999/quarter*",
                     features: ["Salary TDS calculation", "Form 24Q filing", "Form 16 issuance", "Challan verification"]
                   },
                   {

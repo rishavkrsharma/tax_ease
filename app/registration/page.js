@@ -9,7 +9,7 @@ export default function RegistrationPage() {
       title: "Company Registration",
       icon: "🏢",
       description: "Register your Private Limited or Public Limited Company with complete legal compliance.",
-      price: "Starting from ₹999/-",
+      price: "₹4,999 + MCA fees + DSC*",
       link: "/registration/company-registration",
       features: ["Name availability check", "Digital Signature Certificate", "Director ID Number (DIN)", "MCA approval and filing", "Certificate of Incorporation", "PAN & TAN registration"]
     },
@@ -17,7 +17,7 @@ export default function RegistrationPage() {
       title: "LLP Registration",
       icon: "🤝",
       description: "Limited Liability Partnership offering flexibility of partnership with benefits of limited liability.",
-      price: "Starting from ₹999/-",
+      price: "Same as company registration*",
       link: "/registration/llp-registration",
       features: ["LLP name reservation", "DPIN for partners", "LLP Agreement drafting", "MCA filing and approval", "Certificate of Incorporation", "PAN & TAN for LLP"]
     },
@@ -25,7 +25,7 @@ export default function RegistrationPage() {
       title: "Partnership Registration",
       icon: "👥",
       description: "Register your partnership firm with proper legal documentation and deed preparation.",
-      price: "Starting from ₹999/-",
+      price: "₹2,999/-*",
       link: "/registration/partnership-registration",
       features: ["Partnership deed drafting", "Deed registration", "PAN application", "Bank account setup", "Legal compliance", "Partner agreement"]
     },
@@ -33,7 +33,7 @@ export default function RegistrationPage() {
       title: "Proprietor Registration",
       icon: "👤",
       description: "Start your sole proprietorship business with minimal compliance. Perfect for individuals.",
-      price: "Starting from ₹499/-",
+      price: "₹1,999/-*",
       link: "/registration/proprietor-registration",
       features: ["PAN card application", "Shop & Establishment license", "MSME/Udyam registration", "GST registration", "Bank account guidance", "Business consultation"]
     },
@@ -41,7 +41,7 @@ export default function RegistrationPage() {
       title: "GST Registration",
       icon: "📋",
       description: "Complete GST registration services for all business types. Get your GSTIN within 3-7 days.",
-      price: "Starting from ₹499/-",
+      price: "₹999/-*",
       link: "/registration/gst-registration",
       features: ["GST number application", "Document verification", "Online application filing", "GSTIN certificate", "GST compliance guidance", "Regular & Composition scheme"]
     },
@@ -49,7 +49,7 @@ export default function RegistrationPage() {
       title: "NGO Registration",
       icon: "🤲",
       description: "Register your Trust, Society, or Section 8 Company for non-profit charitable activities.",
-      price: "Starting from ₹999/-",
+      price: "₹4,999/-*",
       link: "/registration/ngo-registration",
       features: ["Trust deed preparation", "Society registration", "Section 8 Company setup", "12A & 80G registration", "FCRA registration", "CSR compliance"]
     },
@@ -57,7 +57,7 @@ export default function RegistrationPage() {
       title: "MSME Registration",
       icon: "🏭",
       description: "Udyam Registration for MSMEs. Avail government benefits, subsidies, and credit facilities.",
-      price: "Starting from ₹499/-",
+      price: "₹499/-*",
       link: "/registration/msme-registration",
       features: ["Udyam registration certificate", "Aadhaar-based registration", "Government benefits access", "Credit facility benefits", "Subsidy scheme eligibility", "Priority sector lending"]
     },
@@ -65,7 +65,7 @@ export default function RegistrationPage() {
       title: "Trade Mark Registration",
       icon: "™️",
       description: "Protect your brand identity with trademark registration. Complete search and filing services.",
-      price: "Starting from ₹999/-",
+      price: "₹2,999/-*",
       link: "/registration/trademark-registration",
       features: ["Trademark search", "Application filing", "Objection handling", "Registration certificate", "10-year validity", "Renewal services"]
     },
@@ -73,7 +73,7 @@ export default function RegistrationPage() {
       title: "FSSAI Registration",
       icon: "🍽️",
       description: "Food license registration for manufacturers, traders, and restaurants. Basic, State, or Central.",
-      price: "Starting from ₹999/-",
+      price: "₹4,999/-*",
       link: "/registration/fssai-registration",
       features: ["Basic FSSAI license", "State license", "Central license", "Documentation support", "Annual renewal", "Compliance guidance"]
     },
@@ -81,7 +81,7 @@ export default function RegistrationPage() {
       title: "Import-Export Code (IEC)",
       icon: "🌍",
       description: "IEC registration for international trade. Mandatory 10-digit code with lifetime validity.",
-      price: "Starting from ₹999/-",
+      price: "₹1,999/-*",
       link: "/registration/import-export-code",
       features: ["IEC code application", "DGFT portal registration", "Lifetime validity", "No renewal required", "Digital certificate", "Trade enablement"]
     },
@@ -89,7 +89,7 @@ export default function RegistrationPage() {
       title: "Professional Tax Registration",
       icon: "💼",
       description: "Professional Tax registration as per state regulations for businesses and professionals.",
-      price: "Starting from ₹499/-",
+      price: "₹1,999/-*",
       link: "/registration/professional-tax-registration",
       features: ["PT registration certificate", "State-specific compliance", "Employer registration", "Monthly/Annual filing", "Challan generation", "Penalty avoidance"]
     }
@@ -131,7 +131,7 @@ export default function RegistrationPage() {
                 <h3 className="text-xl font-bold text-[#0B1F3A] tracking-wide mb-3">{service.title}</h3>
                 <p className="text-sm text-[#3D5A80] leading-relaxed mb-5">{service.description}</p>
                 <div className="mb-5 px-4 py-3 rounded-2xl bg-[#C9A84C]/[0.08] border border-[#C9A84C]/20">
-                  <p className="text-sm font-semibold text-[#C9A84C]">{service.price}</p>
+                  <p className="text-base font-extrabold text-[#0B1F3A] tracking-tight leading-snug">{service.price}</p>
                 </div>
                 <div className="space-y-2 mb-6">
                   {service.features.map((feature, idx) => (
@@ -147,6 +147,9 @@ export default function RegistrationPage() {
               </div>
             ))}
           </div>
+          <p className="text-center text-sm text-[#3D5A80]/80 mt-12 max-w-2xl mx-auto">
+            * Professional fees. Government / statutory fees (e.g. MCA) are in addition where applicable.
+          </p>
         </div>
         <div className="absolute -bottom-px left-0 right-0 leading-[0]">
           <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="w-full h-[60px] md:h-[120px] block">

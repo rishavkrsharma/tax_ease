@@ -61,7 +61,7 @@ export default function Home() {
               {[
                 {
                   title: 'Start Your Business',
-                  price: 'From ₹999/-*',
+                  price: 'From ₹499/-*',
                   desc: 'Company, LLP, GST, MSME, FSSAI & more.',
                   link: '/registration',
                 },
@@ -92,13 +92,13 @@ export default function Home() {
                   }`}
                   style={{ animationDelay: `${i * 0.4}s` }}
                 >
-                  <div className="text-[10px] tracking-[0.3em] uppercase text-[#0B1F3A]/55 font-semibold mb-2">
+                  <div className="text-[10px] tracking-[0.3em] uppercase text-slate-900 font-semibold mb-2">
                     {s.title}
                   </div>
-                  <div className="text-xs text-[#0B1F3A]/40 font-light mb-2 leading-relaxed">
+                  <div className="text-xs text-slate-700 font-light mb-2 leading-relaxed">
                     {s.desc}
                   </div>
-                  <div className="text-2xl font-bold text-[#0B1F3A]">{s.price}</div>
+                  <div className="text-2xl font-extrabold text-[#0B1F3A] tabular-nums tracking-tight">{s.price}</div>
                   <div className="mt-3 text-[#0B1F3A]/30 text-sm font-medium group-hover:text-[#0B1F3A]/70 transition-colors">
                     Learn more →
                   </div>
@@ -112,7 +112,7 @@ export default function Home() {
             {[
               {
                 title: 'Start Your Business',
-                price: 'From ₹999/-*',
+                price: 'From ₹499/-*',
                 desc: 'Company, LLP, GST, MSME, FSSAI & more.',
                 link: '/registration',
               },
@@ -143,8 +143,8 @@ export default function Home() {
                 <div className="text-[9px] tracking-[0.25em] uppercase text-[#0B1F3A]/55 font-semibold mb-1">
                   {s.title}
                 </div>
-                <div className="text-[11px] text-[#0B1F3A]/40 font-light mb-1">{s.desc}</div>
-                <div className="text-lg font-bold text-[#0B1F3A]">{s.price}</div>
+                <div className="text-[11px] text-slate-700 font-light mb-1">{s.desc}</div>
+                <div className="text-lg font-extrabold text-[#0B1F3A] tabular-nums tracking-tight">{s.price}</div>
               </Link>
             ))}
           </div>
@@ -240,7 +240,7 @@ export default function Home() {
               <span className="text-[#C9A84C] font-semibold">2011</span>. Built on the belief that every Indian taxpayer — individual or business — deserves access to accurate, professional, and affordable tax services, we leverage technology to eliminate complexity and deliver peace of mind.
             </p>
             <p>
-              With <span className="font-semibold text-[#0B1F3A]">50+ expert associates</span> and a presence across New Delhi, NCR, Bihar, Jharkhand and Telangana, we bring national capability with local understanding.
+              With <span className="font-semibold text-[#0B1F3A]">50+ expert associates</span> and a presence across Bihar, Delhi &amp; NCR, Telangana, Jharkhand, and Odisha, we bring national capability with local understanding.
             </p>
           </div>
 
@@ -252,13 +252,11 @@ export default function Home() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  'New Delhi',
-                  'Noida',
-                  'Ranchi',
-                  'Patna',
-                  'Dhanbad',
-                  'Begusarai',
+                  'Bihar',
+                  'Delhi & NCR',
                   'Telangana',
+                  'Jharkhand',
+                  'Odisha',
                 ].map((city, i) => (
                   <div
                     key={i}
@@ -449,7 +447,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-sm text-[#7A8FA6] leading-relaxed mb-4">
-                CA-led tax, compliance, and registration services online and across NCR, Bihar, Jharkhand, and Telangana.
+                CA-led tax, compliance, and registration services online and across Bihar, Delhi &amp; NCR, Telangana, Jharkhand, and Odisha.
               </p>
               <p className="text-sm text-[#7A8FA6]">
                 Visit:{' '}
@@ -525,8 +523,8 @@ export default function Home() {
                 <p className="font-semibold text-white/80">Contact:</p>
                 <p>
                   Email:{' '}
-                  <a href="mailto:askanytax@gmail.com" className="text-[#C9A84C] hover:underline font-medium">
-                    askanytax@gmail.com
+                  <a href="mailto:hello@anytax.in" className="text-[#C9A84C] hover:underline font-medium">
+                    hello@anytax.in
                   </a>
                 </p>
                 <p>

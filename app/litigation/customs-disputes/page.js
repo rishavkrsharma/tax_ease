@@ -24,7 +24,7 @@ export default function CustomsDisputesPage() {
             <span className="text-white">& Disputes</span>
           </h1>
           <p className="text-xl max-w-3xl leading-relaxed text-[#0B1F3A]/60 font-light">
-            Classification, valuation, origin, and FTP-linked disputes — Commissioner to CESTAT and High Court.
+            Classification, valuation, origin, and FTP-linked disputes Commissioner to CESTAT and High Court.
           </p>
         </div>
       

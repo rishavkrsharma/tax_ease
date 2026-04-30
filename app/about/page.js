@@ -17,7 +17,7 @@ export default function AboutPage() {
           <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-6 py-2.5 mb-8 border border-white/25">
             <span className="text-[10px] tracking-[0.3em] uppercase text-[#0B1F3A]/80 font-semibold">About Us</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0B1F3A] mb-8 leading-tight">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#0B1F3A] mb-8 leading-tight">
             AnyTax.in was born from a conviction: that every Indian — whether a salaried professional in a tier-2 city or a multinational corporation in a metro — deserves access to qualified, honest, and technology-enabled tax expertise.
           </h1>
           <p className="text-lg md:text-xl text-[#0B1F3A]/70 font-light leading-relaxed max-w-3xl mx-auto">
@@ -65,6 +65,9 @@ export default function AboutPage() {
               </li>
               <li>
                 <span className="font-semibold text-[#0B1F3A]">Telangana:</span> Serving the IT and pharmaceutical sectors in South India
+              </li>
+              <li>
+                <span className="font-semibold text-[#0B1F3A]">Odisha:</span> Serving businesses, industry, and professionals across the state
               </li>
               <li>
                 <span className="font-semibold text-[#0B1F3A]">Pan-India:</span> Fully online capability to serve clients in any city or state

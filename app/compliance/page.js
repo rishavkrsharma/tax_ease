@@ -57,7 +57,7 @@ export default function CompliancePage() {
       title: "TDS / TCS Return Filing",
       icon: "💳",
       description: "TDS/TCS return filing services for all quarters. Form 24Q, 26Q, 27Q filing with accurate computation and timely payment.",
-      price: "Starting from ₹499/-",
+      price: "₹999/-*",
       link: "/compliance/tds-tcs-filing",
       features: ["Quarterly TDS returns", "Form 24Q (Salary)", "Form 26Q (Non-salary)", "Form 27Q (NRI payments)", "TDS certificate generation", "Late filing support"]
     },
@@ -65,7 +65,7 @@ export default function CompliancePage() {
       title: "PF Return Filing",
       icon: "🏦",
       description: "Employee Provident Fund (EPF) and ESI return filing services. Monthly ECR filing and annual returns for employers.",
-      price: "Starting from ₹499/-",
+      price: "₹999/-*",
       link: "/compliance/pf-filing",
       features: ["Monthly ECR filing", "PF & ESI challan", "Employee enrollment", "Annual returns", "Compliance certificates", "EPFO portal management"]
     },
@@ -131,7 +131,9 @@ export default function CompliancePage() {
                   {service.description}
                 </p>
                 <div className="mb-5 px-4 py-3 rounded-2xl bg-[#C9A84C]/[0.08] border border-[#C9A84C]/20">
-                  <p className="text-sm font-semibold text-[#C9A84C]">{service.price}</p>
+                  <p className="text-base font-extrabold text-[#0B1F3A] tracking-tight leading-snug tabular-nums">
+                    {service.price}
+                  </p>
                 </div>
                 <div className="space-y-2 mb-6">
                   {service.features.map((feature, idx) => (
@@ -150,6 +152,9 @@ export default function CompliancePage() {
               </div>
             ))}
           </div>
+          <p className="text-center text-sm text-[#3D5A80]/80 mt-12 max-w-2xl mx-auto">
+            * TDS and PF prices are professional fees; government / statutory charges are in addition where applicable.
+          </p>
         </div>
 
         {/* Wave → Gold CTA */}

@@ -9,7 +9,7 @@ export default function AdvisoryPage() {
       title: "Tax Planning & Optimization",
       icon: "📈",
       description: "Strategic tax planning to minimize tax liability legally. Comprehensive analysis and implementation.",
-      price: "Starting from ₹4,999/-",
+      price: null,
       link: "/advisory/tax-planning-optimization",
       features: ["Annual tax planning", "Investment advisory", "Salary structuring", "Business structure optimization", "Deduction maximization", "Capital gains planning", "Retirement planning", "Estate planning"]
     },
@@ -83,7 +83,13 @@ export default function AdvisoryPage() {
                 <h3 className="text-xl font-bold text-[#0B1F3A] tracking-wide mb-3">{service.title}</h3>
                 <p className="text-sm text-[#3D5A80] leading-relaxed mb-5">{service.description}</p>
                 <div className="mb-5 px-4 py-3 rounded-2xl bg-[#C9A84C]/[0.08] border border-[#C9A84C]/20">
-                  <p className="text-sm font-semibold text-[#C9A84C]">{service.price}</p>
+                  {service.price != null ? (
+                    <p className="text-base font-extrabold text-[#0B1F3A] tracking-tight leading-snug tabular-nums">
+                      {service.price}
+                    </p>
+                  ) : (
+                    <p className="text-sm font-semibold text-[#3D5A80]">Contact us to discuss scope and fees</p>
+                  )}
                 </div>
                 <div className="space-y-2 mb-6">
                   {service.features.map((feature, idx) => (

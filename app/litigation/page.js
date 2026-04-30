@@ -9,7 +9,7 @@ export default function LitigationPage() {
       title: "Income Tax Notices & Disputes",
       icon: "⚖️",
       description: "Expert handling of Income Tax notices, scrutiny assessments, and dispute resolution.",
-      price: "Starting from ₹999/-",
+      price: null,
       link: "/litigation/income-tax-disputes",
       features: ["Notice analysis & response", "Scrutiny assessment handling", "Appeal filing (CIT-A)", "ITAT representation", "Penalty reduction", "Settlement commission"]
     },
@@ -109,7 +109,15 @@ export default function LitigationPage() {
                 <h3 className="text-xl font-bold text-[#0B1F3A] tracking-wide mb-3">{service.title}</h3>
                 <p className="text-sm text-[#3D5A80] leading-relaxed mb-5">{service.description}</p>
                 <div className="mb-5 px-4 py-3 rounded-2xl bg-[#C9A84C]/[0.08] border border-[#C9A84C]/20">
-                  <p className="text-sm font-semibold text-[#C9A84C]">{service.price}</p>
+                  {service.price != null ? (
+                    <p className="text-base font-extrabold text-[#0B1F3A] tracking-tight leading-snug tabular-nums">
+                      {service.price}
+                    </p>
+                  ) : (
+                    <p className="text-sm font-semibold text-[#3D5A80] leading-snug">
+                      Contact us to discuss scope and fees
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2 mb-6">
                   {service.features.map((feature, idx) => (

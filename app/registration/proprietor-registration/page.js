@@ -177,7 +177,7 @@ export default function ProprietorRegistrationPage() {
               <h2 className="text-3xl font-bold text-[#0B1F3A] tracking-tight mb-8">
                 Proprietorship Setup <span className="text-[#C9A84C]">Package</span>
               </h2>
-              <div className="text-5xl lg:text-6xl font-extrabold text-[#C9A84C] mb-3">Starting from ₹499/-</div>
+              <div className="text-5xl lg:text-6xl font-extrabold text-[#0B1F3A] mb-3">₹1,999/-*</div>
               <p className="text-xl mb-12 text-[#3D5A80]">Complete setup with all registrations</p>
               <Link href="/contact" className="pill-btn bg-[#0B1F3A] text-white px-12 py-5 text-sm uppercase inline-flex items-center gap-3 shadow-2xl">
                 Start Your Business
